@@ -1,0 +1,48 @@
+---
+import { multilingual } from '@wix/site';
+
+const allLanguages = multilingual.getAvailableLanguages();
+const currentLang = Astro.url.searchParams.get("lang") || "";
+
+---
+
+<div class="language-selector mb-4">
+  <label for="language-select" class="sr-only">Select Language</label>
+  <select
+    id="language-select"
+    class="rounded-lg border bg-white px-4 py-2 text-black dark:border-neutral-800 dark:bg-transparent dark:text-white"
+    value={currentLang}
+  >
+    {allLanguages.map((lang) => {
+      return (
+        <option value={lang.id}>{lang.displayName}</option>
+      );
+    })}
+  </select>
+</div>
+
+<script>
+  const select = document.getElementById("language-select") as HTMLSelectElement;
+  if (select) {
+    // Set the initial value based on URL parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const langParam = urlParams.get("lang");
+    if (langParam) {
+      select.value = langParam;
+    }
+    
+    select.addEventListener("change", (e) => {
+      const selectedLang = (e.target as HTMLSelectElement).value;
+      const url = new URL(window.location.href);
+      
+      if (selectedLang) {
+        url.searchParams.set("lang", selectedLang);
+      } else {
+        url.searchParams.delete("lang");
+      }
+      
+      window.location.href = url.toString();
+    });
+  }
+</script>
+

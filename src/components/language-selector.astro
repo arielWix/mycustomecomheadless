@@ -1,9 +1,9 @@
 ---
 import { multilingual } from '@wix/site';
+import { i18n } from '@wix/essentials';
 
 const allLanguages = multilingual.getAvailableLanguages();
-const currentLang = Astro.url.searchParams.get("lang") || "";
-
+const currentLang = i18n.getLanguage();
 ---
 
 <div class="language-selector mb-4">

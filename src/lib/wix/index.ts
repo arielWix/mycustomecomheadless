@@ -296,7 +296,7 @@ export async function getCollectionProducts({
   return items.map(reshapeProduct);
 }
 
-async function sortedProductsQuery(sortKey?: string, reverse?: boolean) {
+export async function sortedProductsQuery(sortKey?: string, reverse?: boolean) {
   const query = products.queryProducts();
   if (reverse) {
     return query.descending((sortKey! as SortKey) ?? "name");

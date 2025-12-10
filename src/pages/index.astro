@@ -3,10 +3,80 @@ import Carousel from "../components/carousel.astro";
 import ThreeItemGrid from "../components/grid/three-items.astro";
 import Footer from "../components/layout/footer.astro";
 import RootLayout from "../components/layout/layout.astro";
+
+
+import { multilingual} from '@wix/site';
+import { products } from '@wix/stores';
+import { redirects } from '@wix/redirects';
+import { sortedProductsQuery } from "../lib/wix";
+
+
+
+const allLanguages = multilingual.getAvailableLanguages();
+console.log('Available languages - SSR', {allLanguages});
+
+console.log("calling products.queryProducts - SSR");
+sortedProductsQuery().then(
+    q => q.find()
+     .then(({ items }) => {
+      const productNames = items.map(item => item.name).join(', ');
+       console.log('SSR products:\n\t', productNames);
+     })
+  );
+
+
+
+// const { redirectSession } = await redirects.createRedirectSession({
+//   ecomCheckout: { checkoutId: '12906a7e-8663-498c-a6e0-8b57456d59a6' },
+//   callbacks: {
+//     postFlowUrl: 'http://localhost:4321'
+//   },
+// });
+
+
+// console.log('redirectSession', redirectSession);
+
 ---
 
 <RootLayout>
+  <center>
+    <h2 class="text-2xl font-bold text-red-500">Welcome to the Wix Astro Commerce</h2>
+  </center>
   <ThreeItemGrid />
   <Carousel />
   <Footer />
 </RootLayout>
+
+
+
+<script>
+  import { multilingual} from '@wix/site';
+  import { sortedProductsQuery } from "../lib/wix";
+  
+  console.log("Page loaded, calling products.queryProducts - frontend");
+  sortedProductsQuery().then(
+    q => q.find()
+     .then(({ items }) => {
+      const productNames = items.map(item => item.name).join(', ');
+       console.log('frontend items:\n\t', productNames);
+     })
+  );
+
+  const allLanguages = multilingual.getAvailableLanguages();
+  console.log('Available languages - frontend', allLanguages);
+
+  // import { redirects } from '@wix/redirects';
+
+
+  // const { redirectSession } = await redirects.createRedirectSession({
+  //   ecomCheckout: { checkoutId: '12906a7e-8663-498c-a6e0-8b57456d59a6' },
+  //   callbacks: {
+  //     postFlowUrl: 'http://localhost:4321'
+  //   },
+  // });
+
+
+  // console.log('redirectSession', redirectSession);
+
+  
+  </script>    

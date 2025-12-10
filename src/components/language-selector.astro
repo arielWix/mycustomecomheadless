@@ -25,6 +25,7 @@ const currentLang = i18n.getLanguage();
 
 
   import { multilingual } from '@wix/site';
+  import { i18n } from '@wix/essentials';
 
   const allLanguages = multilingual.getAvailableLanguages();
 
@@ -35,6 +36,8 @@ const currentLang = i18n.getLanguage();
     const langParam = urlParams.get("lang");
     if (langParam) {
       select.value = langParam;
+    } else {
+      select.value = i18n.getLanguage();
     }
     
     select.addEventListener("change", (e) => {

@@ -516,5 +516,25 @@ export async function createCheckoutUrl(postFlowUrl: string) {
     },
   });
 
+
+  let langParam = null;
+  if (redirectSession?.fullUrl) {
+    try {
+      // Find the value of 'redirectUrl=' in the fullUrl
+      const url = new URL(redirectSession.fullUrl);
+      const redirectUrl = url.searchParams.get('redirectUrl');
+      if (redirectUrl) {
+        // Decode, parse as URL, and get 'lang'
+        const decodedRedirectUrl = decodeURIComponent(redirectUrl);
+        const redirectUrlObj = new URL(decodedRedirectUrl);
+        langParam = redirectUrlObj.searchParams.get('lang');
+      }
+    } catch (e) {
+      console.error('Failed to extract lang param:', e);
+    }
+  }
+  console.log('!!!!! redirectSession - SSR !!!!!!', {langParam});
+ 
+
   return redirectSession?.fullUrl!;
 }

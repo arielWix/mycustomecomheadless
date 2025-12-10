@@ -22,6 +22,12 @@ const currentLang = i18n.getLanguage();
 </div>
 
 <script>
+
+
+  import { multilingual } from '@wix/site';
+
+  const allLanguages = multilingual.getAvailableLanguages();
+
   const select = document.getElementById("language-select") as HTMLSelectElement;
   if (select) {
     // Set the initial value based on URL parameter
@@ -33,15 +39,10 @@ const currentLang = i18n.getLanguage();
     
     select.addEventListener("change", (e) => {
       const selectedLang = (e.target as HTMLSelectElement).value;
-      const url = new URL(window.location.href);
-      
-      if (selectedLang) {
-        url.searchParams.set("lang", selectedLang);
-      } else {
-        url.searchParams.delete("lang");
+      const selectedLangObj = allLanguages.find(lang => lang.id === selectedLang);
+      if (selectedLangObj) {
+        window.location.href = selectedLangObj.URL!;
       }
-      
-      window.location.href = url.toString();
     });
   }
 </script>

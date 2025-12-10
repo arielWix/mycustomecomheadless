@@ -6,7 +6,6 @@ import RootLayout from "../components/layout/layout.astro";
 import LanguageSelector from "../components/language-selector.astro";
 
 
-
 import { sortedProductsQuery } from "../lib/wix";
 import { multilingual} from '@wix/site';
 
@@ -22,18 +21,6 @@ sortedProductsQuery().then(
        console.log('SSR products:\n\t', productNames);
      })
   );
-
-
-
-// const { redirectSession } = await redirects.createRedirectSession({
-//   ecomCheckout: { checkoutId: '12906a7e-8663-498c-a6e0-8b57456d59a6' },
-//   callbacks: {
-//     postFlowUrl: 'http://localhost:4321'
-//   },
-// });
-
-
-// console.log('redirectSession', redirectSession);
 
 ---
 
@@ -64,19 +51,5 @@ sortedProductsQuery().then(
 
   const allLanguages = multilingual.getAvailableLanguages();
   console.log('Available languages - frontend', allLanguages);
-
-  // import { redirects } from '@wix/redirects';
-
-
-  // const { redirectSession } = await redirects.createRedirectSession({
-  //   ecomCheckout: { checkoutId: '12906a7e-8663-498c-a6e0-8b57456d59a6' },
-  //   callbacks: {
-  //     postFlowUrl: 'http://localhost:4321'
-  //   },
-  // });
-
-
-  // console.log('redirectSession', redirectSession);
-
   
   </script>    

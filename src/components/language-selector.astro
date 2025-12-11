@@ -22,31 +22,46 @@ const currentLang = i18n.getLanguage();
 </div>
 
 <script>
-
-
   import { multilingual } from '@wix/site';
   import { i18n } from '@wix/essentials';
 
-  const allLanguages = multilingual.getAvailableLanguages();
 
-  const select = document.getElementById("language-select") as HTMLSelectElement;
-  if (select) {
-    // Set the initial value based on URL parameter
-    const urlParams = new URLSearchParams(window.location.search);
-    const langParam = urlParams.get("lang");
-    if (langParam) {
-      select.value = langParam;
-    } else {
-      select.value = i18n.getLanguage();
+  function setupLanguageSelector() {
+    const select = document.getElementById("language-select") as HTMLSelectElement;
+    if (select) {
+      // Set the initial value based on URL parameter
+      const urlParams = new URLSearchParams(window.location.search);
+      const langParam = urlParams.get("lang");
+      if (langParam) {
+        select.value = langParam;
+      } else {
+        select.value = i18n.getLanguage();
+      }
     }
-    
-    select.addEventListener("change", (e) => {
-      const selectedLang = (e.target as HTMLSelectElement).value;
+  }
+
+
+  // Use event delegation - works even after DOM replacement
+  document.addEventListener('change', (e) => {
+    const target = e.target as HTMLElement;
+
+    const allLanguages = multilingual.getAvailableLanguages();
+
+
+    if (target.id === 'language-select') {
+      const selectedLang = (target as HTMLSelectElement).value;
+      console.log('selectedLang', selectedLang);
       const selectedLangObj = allLanguages.find(lang => lang.id === selectedLang);
       if (selectedLangObj) {
         window.location.href = selectedLangObj.URL!;
       }
-    });
-  }
+    }
+  });
+
+  // Setup initial value on page load
+  setupLanguageSelector();
+
+  // Re-setup after Astro navigation (client-side routing)
+  document.addEventListener('astro:page-load', setupLanguageSelector);
 </script>
 

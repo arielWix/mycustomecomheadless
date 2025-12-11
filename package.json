@@ -22,7 +22,7 @@
     "@wix/redirects": "1.0.60",
     "@wix/app-management": "^1.0.130",
     "@wix/sdk": "^1.15.23",
-    "@wix/site": "https://cdn.dev.wixpress.com/@wix/site/f545025c074bdf957221ee7385fef213ef86bfe47e89559186dfa2c2.tar.gz",
+    "@wix/site": "https://cdn.dev.wixpress.com/@wix/site/400519ba9251e3fb1fbf4118c3986e8ed1782dc9e751f31220ea1f12.tar.gz",
     "@wix/stores": "1.0.280",
     "astro": "5.8.0",
     "tailwindcss": "^4.1.7",

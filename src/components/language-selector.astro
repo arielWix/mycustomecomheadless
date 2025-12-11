@@ -53,7 +53,7 @@ const currentLang = i18n.getLanguage();
       console.log('selectedLang', selectedLang);
       const selectedLangObj = allLanguages.find(lang => lang.id === selectedLang);
       if (selectedLangObj) {
-        window.location.href = selectedLangObj.URL!;
+        window.location.href = selectedLangObj.url!;
       }
     }
   });

@@ -58,7 +58,7 @@ const reshapeCart = (cart: currentCart.Cart): Cart => {
           id: item._id!,
           title:
             item.descriptionLines
-              ?.map((x) => x.colorInfo?.original ?? x.plainText?.original)
+              ?.map((x) => x.colorInfo?.translated ?? x.plainText?.translated ?? x.colorInfo?.original ?? x.plainText?.original)
               .join(" / ") ?? "",
           selectedOptions: [],
           product: {
@@ -70,7 +70,7 @@ const reshapeCart = (cart: currentCart.Cart): Cart => {
               width: media.getImageUrl(item.image!).width,
               height: media.getImageUrl(item.image!).height,
             },
-            title: item.productName?.original!,
+            title: item.productName?.translated ?? item.productName?.original!,
           } as any as Product,
           url: `/product/${item.url?.split("/").pop() ?? ""}`,
         },
